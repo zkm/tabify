@@ -1,0 +1,102 @@
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+google.load('jquery', '1.4.2');
+</script>
+<script src="jquery.tabify.js" type="text/javascript"></script>
+<link href="tabify.css" rel="stylesheet" />
+<div class="tabs">
+    <ul>
+        <li><a href="#window-1">Account Information</a></li>
+        <li><a href="#window-2">Change Password</a></li>
+        <li><a href="#window-3">Your Photo</a></li>
+    </ul>
+    <div id="window-1" class="window">
+        
+        <form id="form_account_information" method="post" action="">
+            <div class="form-elements">
+                <div class="form-field required">
+                    <div class="form-label">Full Name</div>
+                    <div class="form-input"><input type="text" id="text_account_fullname" name="text_account_fullname" size="30" value="<?=$account_name?>" /></div>
+                </div>
+                <div class="form-field required">
+                    <div class="form-label">Username </div>
+                    <div class="form-input"><input type="text" id="text_account_username" readonly="readonly" disabled="disabled" size="30" value="<?=$account_username?>" /></div>
+                </div>
+                <div class="form-field required">
+                    <div class="form-label">Email</div>
+                    <div class="form-input"><input type="text" id="text_account_email" name="text_account_email" size="30" value="<?=$account_email?>" /></div>
+                </div>
+                <div class="form-field">
+                    <div class="form-label">Default Location</div>
+                    <div class="form-input"><input type="text" id="text_account_default" name="text_account_default" size="40" value="<?=$account_default?>" /> (ie. City or State or ZIP or all))</div>
+                </div>
+                <div class="form-field">
+                    <div class="form-label">Age</div>
+                    <div class="form-input">
+                        <?=$Forms->number_select("select_account_age",18,100,NULL,$account_age)?>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <div class="form-label">Sex</div>
+                    <div class="form-input">
+                        <?php
+                        $option = array("m" => "Male","f" => "Female");
+                        echo $Forms->array_to_select("select_account_sex",$option,NULL,$account_sex,array("0",'- Select -'));
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <div class="form-buttons">
+                <input type="submit" value="Update" id="button_information_submit" class="button update" />
+                <span class="form-message"></span>
+                <input type="button" value="Delete Account" id="button_delete_account" class="button delete" />
+            </div>
+        </form>
+    </div>
+    <div id="window-2" class="window">
+        <form id="form_account_password" method="post" action="">
+            <div class="form-elements">
+                <div class="form-field required">
+                    <div class="form-label">Old Password</div>
+                    <div class="form-input"><input id="text_account_old_password" name="text_account_old_password" type="password" maxlength="12" size="30" /></div>
+                </div>
+                <div class="form-field required">
+                    <div class="form-label">New Password</div>
+                    <div class="form-input"><input id="text_account_new_password" name="text_account_new_password" type="password" maxlength="12" size="30" /></div>
+                </div>
+                <div class="form-field required">
+                    <div class="form-label">New Confirm</div>
+                    <div class="form-input"><input id="text_account_new_confirm" name="text_account_new_confirm" type="password" maxlength="12" size="30" /></div>
+                </div>
+            </div>
+            <div class="form-buttons">
+                <input type="submit" value="Update" id="button_password_submit" class="button update" />
+                <span class="form-message"></span>
+            </div>
+        </form>
+    </div>
+    <div id="window-3" class="window">
+        <form id="form_account_photo" action="/php/ajax/account_photo_upload.php" target="upload_iframe" method="post" enctype="multipart/form-data">
+            <iframe name="upload_iframe" id="upload_iframe" style="width: 100%; height: 50px; display:none;"></iframe>
+            
+            <div class="form-elements">
+                <div class="form-field required" align="center">
+                    <img src="/thumbs/xl/<?=$Constants->SESSION_GUID?>.jpg" class="image avatar thumbnail" />
+                </div>
+                <br style="clear:both;" />
+            </div>
+            <div class="form-footer">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <input id="file_photo" name="file_photo" type="file" />
+                            <input type="submit" value="Upload" id="button_photo_submit" class="button upload" />
+                            <span class="form-message">Nothing Selected</span>
+                        </td>
+                        <td align="right"><input type="button" value="Save Thumbnails" id="button_thumbnails_save" class="button save altpop" rel="Click here to generate this image as thumbnails." /></td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>

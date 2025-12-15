@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  basic-checks:
+    name: Basic checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: List files
+        run: |
+          echo "Repository contents:" 
+          ls -la
+      - name: Validate presence of index.html
+        run: |
+          test -f index.html || (echo "index.html missing" && exit 1)
+      - name: Validate presence of jquery.tabify.js
+        run: |
+          test -f jquery.tabify.js || (echo "jquery.tabify.js missing" && exit 1)
+      - name: Validate presence of tabify.css
+        run: |
+          test -f tabify.css || (echo "tabify.css missing" && exit 1)

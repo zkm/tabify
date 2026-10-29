@@ -1,6 +1,12 @@
 tabify
 ======
 
+[![Deploy to GitHub Pages](https://github.com/zkm/tabify/actions/workflows/pages.yml/badge.svg)](https://github.com/zkm/tabify/actions/workflows/pages.yml)
+[![live demo](https://img.shields.io/website?url=http%3A%2F%2Fzkm.github.io%2Ftabify%2F&label=live%20demo)](http://zkm.github.io/tabify/)
+
+![jQuery plugin](https://img.shields.io/badge/jQuery-plugin-0769AD?logo=jquery&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-663399?logo=css&logoColor=white)
+
 Simple jQuery tabs plugin.
 
 Getting Started

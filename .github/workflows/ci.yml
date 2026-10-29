@@ -6,23 +6,31 @@ on:
   pull_request:
     branches: [ main, master ]
 
+permissions:
+  contents: read
+
 jobs:
-  basic-checks:
-    name: Basic checks
+  syntax:
+    name: Syntax check (HTML, CSS, JS)
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: List files
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      # Only this repo's own files; vendored jQuery is left alone.
+      - name: JavaScript parses
+        run: for f in jquery.tabify.js; do node --check "$f"; done
+
+      # No style rules, so only CSS syntax errors fail the build.
+      - name: CSS parses
         run: |
-          echo "Repository contents:" 
-          ls -la
-      - name: Validate presence of index.html
-        run: |
-          test -f index.html || (echo "index.html missing" && exit 1)
-      - name: Validate presence of jquery.tabify.js
-        run: |
-          test -f jquery.tabify.js || (echo "jquery.tabify.js missing" && exit 1)
-      - name: Validate presence of tabify.css
-        run: |
-          test -f tabify.css || (echo "tabify.css missing" && exit 1)
+          echo '{"rules":{}}' > "$RUNNER_TEMP/stylelint.json"
+          npx --yes stylelint@16 --config "$RUNNER_TEMP/stylelint.json" tabify.css
+
+      - name: HTML is well-formed
+        run: npx --yes htmlhint@1 index.html

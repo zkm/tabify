@@ -1,6 +1,7 @@
 tabify
 ======
 
+[![CI](https://github.com/zkm/tabify/actions/workflows/ci.yml/badge.svg)](https://github.com/zkm/tabify/actions/workflows/ci.yml)
 [![Deploy to GitHub Pages](https://github.com/zkm/tabify/actions/workflows/pages.yml/badge.svg)](https://github.com/zkm/tabify/actions/workflows/pages.yml)
 [![live demo](https://img.shields.io/website?url=http%3A%2F%2Fzkm.github.io%2Ftabify%2F&label=live%20demo)](http://zkm.github.io/tabify/)
 
